@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "godo-helloworld",
+  "main": "js/worker.js",
+  "compatibility_date": "2026-09-01",
+  "build": {
+    // Set GO=go to build with the standard Go toolchain instead of TinyGo.
+    "command": "make",
+    "watch_dir": ["cmd", "../../durable", "../../dosql", "../../js"]
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "HELLO", "class_name": "Hello" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["Hello"] }],
+  "vars": {
+    // Fetched by GET /fetch to demonstrate outgoing HTTP from Go.
+    "FETCH_URL": "https://example.com/"
+  }
+}
